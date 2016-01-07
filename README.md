@@ -1,9 +1,8 @@
 # Cardinal
-fixed and recompiled version of Madk’s (http://esolangs.org/wiki/User:Madk) original Cardinal interpreter.
+Fixed and recompiled version of Madk’s (http://esolangs.org/wiki/User:Madk) original Cardinal interpreter.
 
 The original `Cardinal` interpreter contained a few faulty implemented and missing instructions. I corrected all errors, so the interpreter should run according to the language specification.
 I added a handful of graphical interpreter exe files with different timespans between each step, just for the viewing pleasure.
-Just drag and drop any `Cardinal` text file on either the `cardinal.exe` or any of the `cardinal_xxxx_gfx.exe` files to execute the program either normally or with graphical feedback.
 You can download the original interpreter [here from the Wayback Machine](http://web.archive.org/web/20130403195834/http://floatation.webs.com/Cardinal.zip)
 
 All credit to the inventor of Cardinal, Madk. I only fixed the rather crippling errors in the source code and changed the original color scheme of the graphical interpreter.
