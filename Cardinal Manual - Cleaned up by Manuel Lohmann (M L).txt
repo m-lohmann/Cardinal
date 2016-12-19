@@ -1,0 +1,141 @@
+Cardinal Manual
+
+This is a cleaned up version of the original manual.
+
+    by Manuel Lohmann
+
+Version 1: 2015-07-01
+
+
+How to use
+==========
+
+You can simply drag and drop any Cardinal program text file on one of the
+".exe" files for execution. The executables with "gfx" in their names
+are gui versions of the console version "cardinal.exe"; very useful for
+debugging or just to enjoy watching the program during execution.
+The gfx versions come in several flavors that execute each program step
+at different speeds from 5ms/step to 1000ms/step.
+
+To start a program from the console, e.g. enter
+
+    cardinal.exe program.txt
+    cardinal_50ms_gfx.exe program.txt
+
+The interpreter opens a graphical window to display the progam progress,
+and if the interpreter was started via drag-and-drop, a console window gets
+opened automatically.
+
+Each pointer has a blue arrow symbol at the bottom, showing
+its current movement direction, a red inactive value in the middle,
+and a green active value at the top.
+
+===============================
+Execution related instructions:
+===============================
+%          : start location for pointers, spreading out in all
+             cardinal directions (hence the name).
+             example:
+                                ^
+                        ^
+                %      <%>    < % >
+                        v
+                                v
+
+
+             Use as many start points as you need.
+@          : terminate program
+all pointers gone: terminate program
+
+Direction/Movement related instructions
+=======================================
+
+^ v < > : change pointer direction
+U D L R : active value >0 ? set direction : keep direction
+J       : active value >0 ? skip next instruction : move normally
+j       : active value =0 ? skip next instruction : move normally
+O       : clockwise rotation of pointer direction
+o       : counterclockwise rotation of pointer direction
+#       : copy pointer into every direction except the direction where
+          the pointer came from
+          example:
+                        ^
+             >#    >    #>
+                        v
+
+/ \     : reflect pointer direction at 45°, flip reflector to opposite state
+          example:
+                         ^
+          > /   >/   >   \
+
+N       : reflect L/R moving pointers, Let U/D pointers travel uninterruptedly
+          example:
+                   > N   >N   >   <   <N   < N
+
+Z       : reflect U/D moving pointers, let L/R pointers travel uninterruptedly
+          example:
+                    v               ^
+                        v       ^
+                    Z   Z   v   Z   Z
+
+I       : reflect pointers coming from all directions to their opposite direction.
+          Works like N and Z combined.
+V A { } : remove pointers coming from N S W E
+          example:
+                                              v
+                                                   v
+                                                        v
+                    >  }    > }    >}    }    V    V    V    V
+
+$       : set pointer to new coordinates X,Y = active value,inactive value
+          while keeping current direction
+8       : trap pointer for three steps before it moves on
+x       : remove pointer
+?       : active value =0  ? remove pointer : move normally
+!       : active value !=0 ? remove pointer : move normally
+
+==========================
+Value related instructions
+==========================
+
+~       : flip active/inactive value, active becomes inactive and vice versa
++ -     : increment/decrement active value
+t       : active = active * inactive
+d       : active = active / inactive
+*       : active = active + inactive
+'       : active = active - inactive
+M       : active = active % inactive (MOD)
+&       : active = active AND inactive
+|       : active = active OR  inactive
+X       : active = active XOR inactive
+=       : inactive = active
+0       : set active to 0
+n u ( ) : drop active value into direction the arc of the symbol is pointing to,
+          then set active value to the value of the character on the opposite side of the arc.
+          examples:
+          
+          72    72   | 72  35 |  35    35    35      35    35   | 35  72 |  72    72    72
+           0 #   0#  |  0   0 |  #0   # 0  #  0       0     0   |  0   0 |  #0   # 0  #  0
+           > u   >u  |  >   > |  u>   u >  n  >       > n   >n  |  >   > |  n>   n >  n  >
+                     |  H   H |  H    H    H            H    H  |  H   H |  H    H    H   
+
+          H=ASCII(72), #=ASCII(35)
+
+`       : toggle if pointer gets removed after dropping value, trying to pass n u ( )
+          example:
+
+          72    72    72
+           0     0     0
+           >     >     >
+             u    u    u    u
+                       H    H
+
+============================
+Console related instructions
+============================
+
+:       : active = read value from console
+.       : console output = active value
+;       : print newline
+,       : console = ASCII of active value
+"       : toggle console output
